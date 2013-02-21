@@ -2,6 +2,8 @@
 
 customer::customer(){}
 
+std::vector<int> customer::__viHistory;
+
 void customer::decide(void)
 {
      

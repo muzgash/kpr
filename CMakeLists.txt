@@ -5,11 +5,11 @@ INCLUDE_DIRECTORIES( include )
 
 #ADD_DEFINITIONS( -std=c++0x )
 
-add_library(agents SHARED
-include/Agents.hpp
-src/Agents.cpp
+add_library(customer SHARED
+include/Customer.hpp
+src/Customer.cpp
 )
 
 ADD_EXECUTABLE( kpr kpr.cpp )
 
-target_link_libraries(kpr agents )
+target_link_libraries(kpr customer )
