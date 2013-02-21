@@ -11,27 +11,34 @@
  para más detalles.
  
  Usted debe haber recibido una copia de la Licencia Pública
- General Reducida GNU junto con GDBase.
+ General Reducida GNU junto con KPR.
  Sino, vea <http://www.gnu.org/licenses/>.
  */
 
-#ifndef AGENTS_H
-#define AGENTS_H
+#ifndef CUSTOMER_H
+#define CUSTOMER_H
 
+#include <vector>
 
-class agents{
+class customer{
   public:
-    agents();
+    customer();
 
 	bool isGoing(){return _bDecision;}
 	void setDecision(bool bDecision){_bDecision=bDecision;}
-	void setDecisionFunction(void (*pfDecisionFunction)(int)){_pfDecisionFunction = pfDecisionFunction;}
+	void setDecisionFunction(bool (*pfDecisionFunction)(std::vector<int>)){_pfDecisionFunction = pfDecisionFunction;}
+	void setHistory(std::vector<int> viHistory){__viHistory=viHistory;}
+	void decide(void);
+
+	static std::vector<int> __viHistory;
+
 
   private:
     bool _bDecision;
-	void (*_pfDecisionFunction)(int);
+	bool (*_pfDecisionFunction)(std::vector<int>);
 
 };
 
+std::vector<int> customer::__viHistory;
 
 #endif
