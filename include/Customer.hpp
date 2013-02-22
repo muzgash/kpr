@@ -36,22 +36,34 @@ class customer{
 
 	//MUTATOR FUNCTIONS
 	
-	/*! \brief A mutator function wich changes de last decision taken
+	/*! \brief A mutator function to set the size of the Payoff array. Must be used just one time.
 	 *
-	 *   \param bool bDecision
+	 *  \param void since the memory is stored in the class.
+	 */
+	void setPayoff(void){_piPayoff = new int[_iMemory];}
+
+	/*! \brief A mutator function which sets the customer's memory length.
+	 *  
+	 *  \param int Memory length.
+	 */
+	void setMemory(int iMemory){_iMemory=iMemory;}
+
+	/*! \brief A mutator function which changes the last decision taken
+	 *
+	 *  \param bool Decision.
 	 */
 	void setDecision(bool bDecision){_bDecision=bDecision;}
 	
-	/*! \brief A mutator function wich sets the decision function
+	/*! \brief A mutator function which sets the decision function.
 	 *
-	 *   \param bool *function(std::vector<int>)
+	 *  \param bool *function(std::vector<int>) the pointer to function of the decision function.
 	 */
-	void setDecisionFunction(bool (*pfDecisionFunction)(std::vector<int>)){_pfDecisionFunction = pfDecisionFunction;}
+	void setDecisionFunction(bool (*pfDecisionFunction)(std::vector<int>,int)){_pfDecisionFunction = pfDecisionFunction;}
 	
-	/*! \brief A mutator function wich sets the history vector
+	/*! \brief A mutator function which sets the history vector
 	 *
-	 *   \param std::vector<int>
-	 */
+	 *  \param std::vector<int>
+	 */ //I don't really know yet why I made this function
 	void setHistory(std::vector<int> viHistory){__viHistory=viHistory;}
 
 	/*! \brief An accesor function for the decision pointer to function.
@@ -60,13 +72,33 @@ class customer{
 	 *
 	 *  The function calls the private member pointer to function that is
 	 *  the function a customer has to decide if he's going or not.
-	 *  \return the value is saved in _bDecision so this function returns void.
+	 *
+	 *  \returns void the value is saved in _bDecision.
 	 */
 	void decide(void);
 
+
+
+
+    /*! \brief Updates the payoff array.
+	 *
+	 *  The rules are:
+	 *    - If the bar was crowded and the customer went he gets -1.
+	 *    - If the bar was not crowded and the customer didn't go, he also gets -1.
+	 *    - any other way he gets a +1.
+	 *
+	 *  \param int The max number of comfortable people the bar can allow.
+	 *  
+	 *  \returns void the value is stored in _piPayoff
+	 */
+	void updatePayoff(int tolerance);
+
+
+
+
 	//Must be public since it has to be instantiated outside the class for scope purposes
 	/*! \var static std::vector<int>
-	 *  History of the number of people that went to the restaurant
+	 *  History of the number of people that went to the bar
 	 */
 	static std::vector<int> __viHistory;
 
@@ -80,9 +112,19 @@ class customer{
     bool _bDecision;
 
     /*! \var bool
-	 *   Pointer to the decision function, every function needs the history
+	 *   Pointer to the decision function, every function needs the history and the memory
      */
-	bool (*_pfDecisionFunction)(std::vector<int>);
+	bool (*_pfDecisionFunction)(std::vector<int>,int);
+
+	/*! \var int
+	 *   Memory, it means how many steps in the history he uses to calculate his decision
+	 */
+	int _iMemory;
+
+	/*! \var int*
+	 *  Array of payoffs from previous vists.
+	 */
+	int *_piPayoff;
 
 };
 
