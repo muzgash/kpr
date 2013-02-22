@@ -62,7 +62,7 @@ bool bTrend(vector<int> viHistory)
 
 int main(int argc, char **argv){
 
-	srand(time(NULL));
+	srand(time(NULL)); //random timed seed
 
     int iWeekend,iCustomer; //counters
 	int iGoing=0; //number of going customers
@@ -77,15 +77,14 @@ int main(int argc, char **argv){
 	}
 
 	
-	    for( iWeekend=0; iWeekend<1; iWeekend++ ) { //number of weekends in a year
+	    for( iWeekend=0; iWeekend<105; iWeekend++ ) { //number of weekends in 2 years
 	        for( iCustomer=0; iCustomer<100; iCustomer++ ) {
 			    person[iCustomer].decide();
-				if( person[iCustomer].isGoing()==true ) iGoing++;
+				if( person[iCustomer].isGoing()==true ) iGoing++; //storing the number of people who does go
             }
 
-			//The problem is here, the vector __viHistory is not changing but not error reported
-			person[0].__viHistory.push_back(iGoing);
-			cout<<iWeekend<<" "<<iGoing<<" "<<endl;
+			customer::__viHistory.push_back(iGoing);
+			//cout<<iWeekend<<" "<<iGoing<<endl;
 			iGoing=0;
 
 		}
