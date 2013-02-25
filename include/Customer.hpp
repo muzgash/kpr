@@ -32,7 +32,9 @@ class customer{
     customer();
 
 	//ACCESOR FUNCTIONS
-	bool isGoing(){return _bDecision;}
+	bool isGoing(void){return _bDecision;}
+	int getMemory(void){return _iMemory;}
+	int* getPayoff(void){return _piPayoff;}
 
 	//MUTATOR FUNCTIONS
 	
@@ -60,12 +62,6 @@ class customer{
 	 */
 	void setDecisionFunction(bool (*pfDecisionFunction)(std::vector<int>,int)){_pfDecisionFunction = pfDecisionFunction;}
 	
-	/*! \brief A mutator function which sets the history vector
-	 *
-	 *  \param std::vector<int>
-	 */ //I don't really know yet why I made this function
-	void setHistory(std::vector<int> viHistory){__viHistory=viHistory;}
-
 	/*! \brief An accesor function for the decision pointer to function.
 	 *
 	 *  \param void since everything it needs should be within the object.
@@ -102,6 +98,11 @@ class customer{
 	 */
 	static std::vector<int> __viHistory;
 
+    /*! \var bool
+	 *   Pointer to the decision function, every function needs the history and the memory
+     */
+	static bool (*_pfDecisionFunction)(std::vector<int>,int);
+
 
 
 
@@ -110,11 +111,6 @@ class customer{
 	 *   Last decision taken by the customer, eventually it should be another vector
      */
     bool _bDecision;
-
-    /*! \var bool
-	 *   Pointer to the decision function, every function needs the history and the memory
-     */
-	bool (*_pfDecisionFunction)(std::vector<int>,int);
 
 	/*! \var int
 	 *   Memory, it means how many steps in the history he uses to calculate his decision

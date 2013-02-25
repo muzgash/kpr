@@ -25,6 +25,7 @@ int* putBack(int number, int *array, int size)
 customer::customer(){}
 
 std::vector<int> customer::__viHistory;
+bool (*customer::_pfDecisionFunction)(std::vector<int>,int);
 
 void customer::decide(void)
 { 
