@@ -56,11 +56,19 @@ class customer{
 	 */
 	void setDecision(bool bDecision){_bDecision=bDecision;}
 	
+	/*! \brief A mutator function which changes the index for  decision function to be used.
+	 *
+	 *  \param bool Decision Function Index.
+	 */
+	void setDecisionFunctionIndex(int iDecisionFunctionIndex){_iDecisionFunctionIndex=iDecisionFunctionIndex;}
+	
 	/*! \brief A mutator function which sets the decision function.
 	 *
 	 *  \param bool *function(std::vector<int>) the pointer to function of the decision function.
 	 */
-	void setDecisionFunction(bool (*pfDecisionFunction)(std::vector<int>,int)){_pfDecisionFunction = pfDecisionFunction;}
+	//NOT NEEDED SINCE THE DECISION FUNCTIONS ARE SET THE HARDWAY, THEY ARE STATIC
+	void setDecisionFunctions(bool (*pfDecisionFunction[5])(std::vector<int>,int))
+	    {for(int i=0;i<5;i++) _pfDecisionFunction[0] = pfDecisionFunction[0];}
 	
 	/*! \brief An accesor function for the decision pointer to function.
 	 *
@@ -101,7 +109,7 @@ class customer{
     /*! \var bool
 	 *   Pointer to the decision function, every function needs the history and the memory
      */
-	static bool (*_pfDecisionFunction)(std::vector<int>,int);
+	static bool (*_pfDecisionFunction[5])(std::vector<int>,int);
 
 
 
@@ -111,6 +119,11 @@ class customer{
 	 *   Last decision taken by the customer, eventually it should be another vector
      */
     bool _bDecision;
+
+	/*! \var int
+	 *  Actual index of the decision function in the common decision function array
+	 */
+	int _iDecisionFunctionIndex;
 
 	/*! \var int
 	 *   Memory, it means how many steps in the history he uses to calculate his decision

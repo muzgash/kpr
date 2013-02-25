@@ -25,11 +25,11 @@ int* putBack(int number, int *array, int size)
 customer::customer(){}
 
 std::vector<int> customer::__viHistory;
-bool (*customer::_pfDecisionFunction)(std::vector<int>,int);
+bool (*customer::_pfDecisionFunction[5])(std::vector<int>,int);
 
 void customer::decide(void)
 { 
-    _bDecision=_pfDecisionFunction(__viHistory,_iMemory);
+    _bDecision=_pfDecisionFunction[_iDecisionFunctionIndex](__viHistory,_iMemory);
 }
 
 void customer::updatePayoff(int tolerance)

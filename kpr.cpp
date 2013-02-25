@@ -12,7 +12,7 @@
 
 using namespace std;
 
-
+#define p(x) cout<<x<<endl
 
 
 int main(int argc, char **argv){
@@ -25,11 +25,17 @@ int main(int argc, char **argv){
 	double *pfNumber = new double[105],*pfWeekends = new double[105];
     customer person[100];
 
-	string sFilename("ranmemory-nolearning-");
+    //Sets the decision functions on the static array for the customer class 
+	customer::_pfDecisionFunction[0]=bSame;
+	customer::_pfDecisionFunction[1]=bDiff;
+	customer::_pfDecisionFunction[2]=bTrend;
+	customer::_pfDecisionFunction[3]=bSum;
+	customer::_pfDecisionFunction[4]=bPercent;
+
+	/*string sFilename("ranmemory-nolearning-");
 	char *numberFile = new char[2];
 
-
-/*for(int i=0;i<20;i++){
+for(int i=0;i<20;i++){
 string filename=sFilename;
 	sprintf(numberFile,"%d",i);
 	filename+=numberFile;*/
@@ -38,11 +44,11 @@ string filename=sFilename;
 	for(iCustomer=0; iCustomer<100; iCustomer++ ) {
 	    //Sets with equal probability a decision function for each agent
 		iRandom=rand()%100;
-		if( iRandom < 20 )	person[iCustomer].setDecisionFunction(bSame);
-		else if( iRandom >= 20 && iRandom < 40 ) person[iCustomer].setDecisionFunction(bDiff);
-		else if( iRandom >= 40 && iRandom < 60 ) person[iCustomer].setDecisionFunction(bSum);
-		else if( iRandom >= 60 && iRandom < 80 ) person[iCustomer].setDecisionFunction(bPercent);
-		else person[iCustomer].setDecisionFunction(bTrend);
+		if( iRandom < 20 )	person[iCustomer].setDecisionFunctionIndex(0);
+		else if( iRandom >= 20 && iRandom < 40 ) person[iCustomer].setDecisionFunctionIndex(1);
+		else if( iRandom >= 40 && iRandom < 60 ) person[iCustomer].setDecisionFunctionIndex(2);
+		else if( iRandom >= 60 && iRandom < 80 ) person[iCustomer].setDecisionFunctionIndex(3);
+		else person[iCustomer].setDecisionFunctionIndex(4);
 
 		person[iCustomer].setMemory(rand()%10+1); //Sets the memory with an integer between 1 and 10
 		person[iCustomer].setPayoff();
