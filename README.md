@@ -3,8 +3,8 @@ KPR
 
 HOWTO compile and run it (Linux only)
 -------------------------------------
-Create a folder most of the time called build
-$ mkdir build
+Create a folder most of the time called build  
+$ mkdir build  
 $ cd build
 
 then run cmake and make as

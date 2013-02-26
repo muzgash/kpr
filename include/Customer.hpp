@@ -34,15 +34,17 @@ class customer{
 	//ACCESOR FUNCTIONS
 	bool isGoing(void){return _bDecision;}
 	int getMemory(void){return _iMemory;}
-	int* getPayoff(void){return _piPayoff;}
+	std::vector<int> getPayoff(void){return _viPayoff;}
+	int getDecisionFunctionIndex(void){return _iDecisionFunctionIndex;}
+	int* getPayoffSumHistory(void){return _piPayoffSumHistory;}
 
 	//MUTATOR FUNCTIONS
 	
-	/*! \brief A mutator function to set the size of the Payoff array. Must be used just one time.
+	/*! \brief A mutator function to initialize the payoff sum log.
 	 *
 	 *  \param void since the memory is stored in the class.
 	 */
-	void setPayoff(void){_piPayoff = new int[_iMemory];}
+	void setPayoffSumHistory(void){for( int i=0;i<5;i++ ) _piPayoffSumHistory[i]=10;}
 
 	/*! \brief A mutator function which sets the customer's memory length.
 	 *  
@@ -61,15 +63,7 @@ class customer{
 	 *  \param bool Decision Function Index.
 	 */
 	void setDecisionFunctionIndex(int iDecisionFunctionIndex){_iDecisionFunctionIndex=iDecisionFunctionIndex;}
-	
-	/*! \brief A mutator function which sets the decision function.
-	 *
-	 *  \param bool *function(std::vector<int>) the pointer to function of the decision function.
-	 */
-	//NOT NEEDED SINCE THE DECISION FUNCTIONS ARE SET THE HARDWAY, THEY ARE STATIC
-	void setDecisionFunctions(bool (*pfDecisionFunction[5])(std::vector<int>,int))
-	    {for(int i=0;i<5;i++) _pfDecisionFunction[0] = pfDecisionFunction[0];}
-	
+
 	/*! \brief An accesor function for the decision pointer to function.
 	 *
 	 *  \param void since everything it needs should be within the object.
@@ -93,9 +87,16 @@ class customer{
 	 *
 	 *  \param int The max number of comfortable people the bar can allow.
 	 *  
-	 *  \returns void the value is stored in _piPayoff
+	 *  \returns void the value is stored in _viPayoff
 	 */
 	void updatePayoff(int tolerance);
+
+	/*! \brief Checks payoffs vector to change the decision function if necesary
+	 *
+	 *  \param int time elpased time.
+	 *
+	 */
+	void checkPayoffs(int time);
 
 
 
@@ -109,7 +110,7 @@ class customer{
     /*! \var bool
 	 *   Pointer to the decision function, every function needs the history and the memory
      */
-	static bool (*_pfDecisionFunction[5])(std::vector<int>,int);
+	static bool (*__pfDecisionFunction[5])(std::vector<int>,int);
 
 
 
@@ -133,7 +134,12 @@ class customer{
 	/*! \var int*
 	 *  Array of payoffs from previous vists.
 	 */
-	int *_piPayoff;
+	std::vector<int> _viPayoff;
+
+	/*! \var std::vector<int>
+	 *
+	 */
+	int _piPayoffSumHistory[5];
 
 };
 

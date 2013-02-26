@@ -22,23 +22,24 @@ int main(int argc, char **argv){
     int iWeekend,iCustomer; //counters
 	double iGoing=0; //number of going customers
 	int iRandom;
-	double *pfNumber = new double[105],*pfWeekends = new double[105];
+	double *pfNumber = new double[210],*pfWeekends = new double[210];
     customer person[100];
 
-    //Sets the decision functions on the static array for the customer class 
-	customer::_pfDecisionFunction[0]=bSame;
-	customer::_pfDecisionFunction[1]=bDiff;
-	customer::_pfDecisionFunction[2]=bTrend;
-	customer::_pfDecisionFunction[3]=bSum;
-	customer::_pfDecisionFunction[4]=bPercent;
+    //Setup of the decision functions on the static array for the customer class 
+	customer::__pfDecisionFunction[0]=bSame;
+	customer::__pfDecisionFunction[1]=bDiff;
+	customer::__pfDecisionFunction[2]=bTrend;
+	customer::__pfDecisionFunction[3]=bSum;
+	customer::__pfDecisionFunction[4]=bPercent;
 
-	/*string sFilename("ranmemory-nolearning-");
+	string sFilename("memory-learning-");
 	char *numberFile = new char[2];
 
 for(int i=0;i<20;i++){
 string filename=sFilename;
 	sprintf(numberFile,"%d",i);
-	filename+=numberFile;*/
+	filename+=numberFile;
+	filename+=".png";
 
 	//Initial conditions
 	for(iCustomer=0; iCustomer<100; iCustomer++ ) {
@@ -51,11 +52,11 @@ string filename=sFilename;
 		else person[iCustomer].setDecisionFunctionIndex(4);
 
 		person[iCustomer].setMemory(rand()%10+1); //Sets the memory with an integer between 1 and 10
-		person[iCustomer].setPayoff();
+		person[iCustomer].setPayoffSumHistory();
 	}
 
 	
-	for( iWeekend=0; iWeekend<105; iWeekend++ ) { //number of weekends in 2 years
+	for( iWeekend=0; iWeekend<210; iWeekend++ ) { //number of weekends in 2 years
 		//Loop to calculate the decisions and sum up the customers each week
 		for( iCustomer=0; iCustomer<100; iCustomer++ ) {
 			person[iCustomer].decide();
@@ -67,21 +68,25 @@ string filename=sFilename;
 		//Loop to update the payoffs and change the decision function if necessary
 		for( iCustomer=0; iCustomer<100; iCustomer++ ) {
 			person[iCustomer].updatePayoff(60);
+			person[iCustomer].checkPayoffs(iWeekend);
 		}
+
+		//int *pay;
+		//pay=person[0].getPayoffSumHistory();
 
 		//Logging of number of assistants 
 		pfNumber[iWeekend]=iGoing/100;
 		pfWeekends[iWeekend]=iWeekend;
-		//cout<<iWeekend<<" "<<iGoing<<endl;
+		//if(i==0) cout<<pay[0]<<" "<<pay[1]<<" "<<pay[2]<<" "<<pay[3]<<" "<<pay[4]<<" "<<person[0].getDecisionFunctionIndex()<<endl;
 
 		iGoing=0;
 	}
 
-/*	//MathGL Plotting
+	//MathGL Plotting
 	mglData number;
 	mglData weekends;
-	number.Set(pfNumber,105);
-	weekends.Set(pfWeekends,105);
+	number.Set(pfNumber,210);
+	weekends.Set(pfWeekends,210);
 	mglGraphZB gr;
 
 	gr.Alpha(false);
@@ -98,7 +103,7 @@ string filename=sFilename;
 	gr.Plot(weekends,number,"r-");
 	gr.WritePNG(filename.c_str());
 	
-}*/
+}
 
 	return 0;
 }
