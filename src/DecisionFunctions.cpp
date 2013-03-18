@@ -8,13 +8,13 @@ bool bTrend(std::vector<int> viHistory,int iMemory)
 {
 	int tolerance=60;
 	int size=viHistory.size();
-	if( size < iMemory ) {
+	if( size < 20 ) { //ran till max mem
 		if( rand()%100 > 50 ) return true;
 		else return false;
 	}
 	else {
 		double trend=0;
-		for(int i=iMemory;i>0;i--) trend=viHistory.at(size-i)/iMemory;
+		for(int i=iMemory;i>0;i--) trend+=viHistory.at(size-i)/iMemory;
 		if( trend > tolerance ) return false;
 		else return true;
 	}
@@ -24,7 +24,7 @@ bool bDiff(std::vector<int> viHistory, int iMemory)
 {
 	int tolerance=60;
 	int size=viHistory.size();
-	if( size < iMemory ) {
+	if( size < 20 ) { //ran till max mem
 		if( rand()%100 > 50 ) return true;
 		else return false;
 	}
@@ -38,7 +38,7 @@ bool bSame(std::vector<int> viHistory, int iMemory)
 {
 	int tolerance=60;
 	int size=viHistory.size();
-	if( size < iMemory ) {
+	if( size < 20 ) { //rand till max mem
 		if( rand()%100 > 50 ) return true;
 		else return false;
 	}
@@ -52,7 +52,7 @@ bool bSum(std::vector<int> viHistory,int iMemory)
 {
 	int tolerance=60;
 	int size=viHistory.size();
-	if( size < iMemory ) {
+	if( size < 20 ) { //rand till max mem
 		if( rand()%100 > 50 ) return true;
 		else return false;
 	}
@@ -67,7 +67,7 @@ bool bPercent(std::vector<int> viHistory,int iMemory)
     iMemory=1;
 	int tolerance=60;
 	int size=viHistory.size();
-	if( size < iMemory ) {
+	if( size < 20 ) {//rand till max mem
 		if( rand()%100 > 50 ) return true;
 		else return false;
 	}

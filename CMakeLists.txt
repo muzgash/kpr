@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.0)
-
+include( FindGSL.cmake )
 
 INCLUDE_DIRECTORIES( include )
 
@@ -15,6 +15,11 @@ include/DecisionFunctions.hpp
 src/DecisionFunctions.cpp
 )
 
+add_library(plots SHARED
+include/Plots.hpp
+src/Plots.cpp
+)
+
 ADD_EXECUTABLE( kpr kpr.cpp )
 
-target_link_libraries(kpr customer functions mgl)
+target_link_libraries(kpr customer functions plots mgl gsl gslcblas)

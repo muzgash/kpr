@@ -60,10 +60,12 @@ void customer::checkPayoffs(int time)
 
 void customer::updatePayoff(int tolerance)
 {
-	if( __viHistory.back() > tolerance && _bDecision == true || __viHistory.back() < tolerance && _bDecision == false )
+	if( __viHistory.back() > tolerance && _bDecision == true )
 		_viPayoff.push_back(-1);
-	else
+	else if( __viHistory.back() > tolerance && _bDecision == false || __viHistory.back() < tolerance && _bDecision == true )
 		_viPayoff.push_back(1);
+	else 
+		_viPayoff.push_back(0);
 }
 
 
