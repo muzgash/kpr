@@ -7,9 +7,6 @@
 #include <ctime>
 #include <string>
 
-//GSL inclusions
-#include <gsl/gsl_histogram.h>
-
 
 using namespace std;
 

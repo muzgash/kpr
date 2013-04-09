@@ -1,5 +1,4 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.0)
-include( FindGSL.cmake )
 
 INCLUDE_DIRECTORIES( include )
 
